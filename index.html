@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kiki's Mini Gym</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="game-shell" id="gameShell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Tiny gains, big dreams</p>
+          <h1>Kiki's Mini Gym</h1>
+        </div>
+        <button class="reset-button" id="resetButton" type="button">Reset Game</button>
+      </header>
+
+      <main class="game-grid">
+        <section class="hero-panel card">
+          <div class="gym-scene" id="gymScene">
+            <div class="scene-sparkle sparkle-one"></div>
+            <div class="scene-sparkle sparkle-two"></div>
+            <div class="window">
+              <span></span>
+              <span></span>
+            </div>
+            <div class="mirror" id="mirrorVisual"></div>
+            <div class="equipment treadmill">
+              <span></span>
+            </div>
+            <div class="equipment dumbbells" id="dumbbellsVisual">
+              <span></span>
+              <span></span>
+            </div>
+            <div class="equipment boxing" id="boxingVisual">
+              <span></span>
+            </div>
+            <div class="character" id="character" aria-label="Kiki">
+              <div class="head">
+                <span class="face left-eye"></span>
+                <span class="face right-eye"></span>
+                <span class="face smile"></span>
+              </div>
+              <div class="hair"></div>
+              <div class="body"></div>
+              <div class="arm arm-left"></div>
+              <div class="arm arm-right"></div>
+              <div class="leg leg-left"></div>
+              <div class="leg leg-right"></div>
+            </div>
+            <div class="mat"></div>
+            <div class="coin-layer" id="coinLayer"></div>
+          </div>
+
+          <div class="status-message" id="statusMessage">Pick a workout to start earning.</div>
+          <div class="level-flash" id="levelFlash">LEVEL UP!</div>
+        </section>
+
+        <section class="stats-panel card">
+          <div class="stat-card">
+            <span>Points</span>
+            <strong id="pointsValue">0</strong>
+          </div>
+          <div class="stat-card">
+            <span>Coins</span>
+            <strong id="coinsValue">0</strong>
+          </div>
+          <div class="stat-card">
+            <span>Level</span>
+            <strong id="levelValue">1</strong>
+          </div>
+          <div class="stat-card">
+            <span>Gym Rating</span>
+            <strong><span id="ratingValue">1</span> ★</strong>
+          </div>
+
+          <div class="meter-card">
+            <div class="meter-label">
+              <span>Energy</span>
+              <strong><span id="energyValue">100</span>/100</strong>
+            </div>
+            <div class="meter">
+              <div class="meter-fill energy-fill" id="energyFill"></div>
+            </div>
+          </div>
+
+          <div class="meter-card">
+            <div class="meter-label">
+              <span>XP</span>
+              <strong><span id="xpValue">0</span>/<span id="nextXpValue">100</span></strong>
+            </div>
+            <div class="meter">
+              <div class="meter-fill xp-fill" id="xpFill"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="actions-panel card">
+          <div class="section-heading">
+            <h2>Workouts</h2>
+            <button class="rest-button action-button" id="restButton" type="button">
+              Rest +<span id="restAmountValue">20</span>
+            </button>
+          </div>
+          <div class="workout-grid">
+            <button class="workout-button action-button" data-workout="treadmill" type="button">
+              <span class="workout-icon">⌁</span>
+              <span>
+                <strong>Treadmill</strong>
+                <small>+5 pts · +3 coins · -5 energy</small>
+              </span>
+            </button>
+            <button class="workout-button action-button" data-workout="dumbbells" type="button">
+              <span class="workout-icon">●</span>
+              <span>
+                <strong>Dumbbells</strong>
+                <small>+10 pts · +5 coins · -10 energy</small>
+              </span>
+            </button>
+            <button class="workout-button action-button" data-workout="squats" type="button">
+              <span class="workout-icon">↧</span>
+              <span>
+                <strong>Squats</strong>
+                <small>+15 pts · +8 coins · -15 energy</small>
+              </span>
+            </button>
+            <button class="workout-button action-button locked" data-workout="boxing" type="button">
+              <span class="workout-icon">◖</span>
+              <span>
+                <strong>Boxing Bag</strong>
+                <small id="boxingHint">Unlocks at Level 3</small>
+              </span>
+            </button>
+          </div>
+        </section>
+
+        <section class="challenge-panel card" id="challengePanel">
+          <div class="section-heading">
+            <h2>Challenge</h2>
+            <span class="reward-pill">+50 coins</span>
+          </div>
+          <p id="challengeText">Do 5 workouts</p>
+          <div class="meter">
+            <div class="meter-fill challenge-fill" id="challengeFill"></div>
+          </div>
+          <div class="challenge-progress" id="challengeProgress">0/5</div>
+        </section>
+
+        <section class="shop-panel card">
+          <div class="section-heading">
+            <h2>Upgrade Shop</h2>
+            <span class="shop-note">Tap to buy</span>
+          </div>
+          <div class="shop-list" id="shopList"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
