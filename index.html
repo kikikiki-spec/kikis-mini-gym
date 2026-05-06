@@ -7,154 +7,144 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="game-shell" id="gameShell">
-      <header class="topbar">
-        <div>
-          <p class="eyebrow">Tiny gains, big dreams</p>
+    <div class="app">
+      <section class="screen" id="startScreen">
+        <div class="pixel-panel start-panel">
+          <p class="eyebrow">Pixel Gym RPG</p>
           <h1>Kiki's Mini Gym</h1>
+          <p class="start-copy">
+            Train, talk, shop, and level up in a tiny tile-based gym world.
+          </p>
+          <div class="button-row">
+            <button id="startButton" type="button">Start</button>
+            <button id="instructionsButton" type="button">Controls</button>
+          </div>
         </div>
-        <button class="reset-button" id="resetButton" type="button">Reset Game</button>
-      </header>
+      </section>
 
-      <main class="game-grid">
-        <section class="hero-panel card">
-          <div class="gym-scene" id="gymScene">
-            <div class="scene-sparkle sparkle-one"></div>
-            <div class="scene-sparkle sparkle-two"></div>
-            <div class="window">
-              <span></span>
-              <span></span>
+      <section class="screen hidden" id="instructionsScreen">
+        <div class="pixel-panel modal-panel">
+          <h2>Controls</h2>
+          <ul>
+            <li>Move with WASD or arrow keys.</li>
+            <li>Press E near people or equipment.</li>
+            <li>Press P to pause.</li>
+            <li>Workouts spend energy and earn XP, coins, and stat gains.</li>
+            <li>Buy outfits, equip them, and watch Kiki get stronger.</li>
+          </ul>
+          <button id="closeInstructionsButton" type="button">Back</button>
+        </div>
+      </section>
+
+      <section class="screen hidden" id="pauseScreen">
+        <div class="pixel-panel modal-panel">
+          <h2>Paused</h2>
+          <div class="button-row">
+            <button id="resumeButton" type="button">Resume</button>
+            <button id="pauseSaveButton" type="button">Save</button>
+            <button id="pauseResetButton" type="button">Reset</button>
+          </div>
+        </div>
+      </section>
+
+      <main class="game hidden" id="gameShell">
+        <header class="topbar pixel-panel">
+          <div>
+            <p class="eyebrow">Kiki's Mini Gym</p>
+            <h1 id="titleText">Level 1 Beginner</h1>
+          </div>
+          <div class="button-row">
+            <button id="saveButton" type="button">Save</button>
+            <button id="resetButton" type="button">Reset</button>
+          </div>
+        </header>
+
+        <section class="hud">
+          <div class="pixel-panel hud-card">
+            <span>XP <b id="xpValue">0</b>/<b id="nextXpValue">100</b></span>
+            <div class="pixel-meter"><i id="xpBar"></i></div>
+          </div>
+          <div class="pixel-panel hud-card">
+            <span>Energy <b id="energyValue">100</b></span>
+            <div class="pixel-meter"><i id="energyBar"></i></div>
+          </div>
+          <div class="pixel-panel hud-card">
+            <span>Mood <b id="moodValue">80</b></span>
+            <div class="pixel-meter"><i id="moodBar"></i></div>
+          </div>
+          <div class="pixel-panel hud-card coins-card">
+            <span>Coins <b id="coinsValue">0</b></span>
+          </div>
+        </section>
+
+        <div class="game-layout">
+          <section class="world-wrap pixel-panel">
+            <div class="gym-world" id="gymWorld">
+              <div class="tile-label reception">Reception</div>
+              <div class="tile-label cardio">Cardio</div>
+              <div class="tile-label weights">Weights</div>
+              <div class="tile-label squat">Squat</div>
+              <div class="tile-label boxing-zone">Boxing</div>
+              <div class="tile-label yoga">Stretch</div>
+              <div class="tile-label rest">Rest</div>
+              <div class="tile-label smoothie">Smoothies</div>
+              <div class="tile-label locker">Lockers</div>
+              <div id="entityLayer"></div>
+              <div class="prompt hidden" id="interactionPrompt">Press E to interact</div>
+              <div class="action-banner hidden" id="actionBanner"></div>
+              <div id="floatLayer"></div>
             </div>
-            <div class="mirror" id="mirrorVisual"></div>
-            <div class="equipment treadmill">
-              <span></span>
+            <div class="dialogue hidden" id="dialogueBox">
+              <strong id="dialogueName"></strong>
+              <span id="dialogueText"></span>
             </div>
-            <div class="equipment dumbbells" id="dumbbellsVisual">
-              <span></span>
-              <span></span>
-            </div>
-            <div class="equipment boxing" id="boxingVisual">
-              <span></span>
-            </div>
-            <div class="character" id="character" aria-label="Kiki">
-              <div class="head">
-                <span class="face left-eye"></span>
-                <span class="face right-eye"></span>
-                <span class="face smile"></span>
+          </section>
+
+          <aside class="sidebar">
+            <section class="pixel-panel stat-panel">
+              <h2>Stats</h2>
+              <div class="stat-list">
+                <span>Fitness Level</span><b id="levelValue">1</b>
+                <span>Title</span><b id="titleValue">Beginner Body</b>
+                <span>Strength</span><b id="strengthValue">10</b>
+                <span>Cardio</span><b id="cardioValue">10</b>
+                <span>Stamina</span><b id="staminaValue">10</b>
+                <span>Current Outfit</span><b id="currentOutfitValue">Basic Gym Fit</b>
               </div>
-              <div class="hair"></div>
-              <div class="body"></div>
-              <div class="arm arm-left"></div>
-              <div class="arm arm-right"></div>
-              <div class="leg leg-left"></div>
-              <div class="leg leg-right"></div>
-            </div>
-            <div class="mat"></div>
-            <div class="coin-layer" id="coinLayer"></div>
-          </div>
+            </section>
 
-          <div class="status-message" id="statusMessage">Pick a workout to start earning.</div>
-          <div class="level-flash" id="levelFlash">LEVEL UP!</div>
-        </section>
+            <section class="pixel-panel mission-panel">
+              <h2>Mission</h2>
+              <p id="missionText">Complete 3 workouts</p>
+              <small id="missionReward">Reward: +40 XP, +25 coins</small>
+            </section>
 
-        <section class="stats-panel card">
-          <div class="stat-card">
-            <span>Points</span>
-            <strong id="pointsValue">0</strong>
-          </div>
-          <div class="stat-card">
-            <span>Coins</span>
-            <strong id="coinsValue">0</strong>
-          </div>
-          <div class="stat-card">
-            <span>Level</span>
-            <strong id="levelValue">1</strong>
-          </div>
-          <div class="stat-card">
-            <span>Gym Rating</span>
-            <strong><span id="ratingValue">1</span> ★</strong>
-          </div>
+            <section class="pixel-panel audio-panel">
+              <h2>Music</h2>
+              <label><input type="checkbox" id="musicToggle" /> Theme on</label>
+              <label>Volume <input type="range" id="volumeControl" min="0" max="1" step="0.05" /></label>
+            </section>
 
-          <div class="meter-card">
-            <div class="meter-label">
-              <span>Energy</span>
-              <strong><span id="energyValue">100</span>/100</strong>
-            </div>
-            <div class="meter">
-              <div class="meter-fill energy-fill" id="energyFill"></div>
-            </div>
-          </div>
+            <section class="pixel-panel outfit-panel" id="outfitShop">
+              <h2>Outfit Shop</h2>
+              <div id="shopList" class="outfit-list"></div>
+            </section>
 
-          <div class="meter-card">
-            <div class="meter-label">
-              <span>XP</span>
-              <strong><span id="xpValue">0</span>/<span id="nextXpValue">100</span></strong>
-            </div>
-            <div class="meter">
-              <div class="meter-fill xp-fill" id="xpFill"></div>
-            </div>
-          </div>
-        </section>
-
-        <section class="actions-panel card">
-          <div class="section-heading">
-            <h2>Workouts</h2>
-            <button class="rest-button action-button" id="restButton" type="button">
-              Rest +<span id="restAmountValue">20</span>
-            </button>
-          </div>
-          <div class="workout-grid">
-            <button class="workout-button action-button" data-workout="treadmill" type="button">
-              <span class="workout-icon">⌁</span>
-              <span>
-                <strong>Treadmill</strong>
-                <small>+5 pts · +3 coins · -5 energy</small>
-              </span>
-            </button>
-            <button class="workout-button action-button" data-workout="dumbbells" type="button">
-              <span class="workout-icon">●</span>
-              <span>
-                <strong>Dumbbells</strong>
-                <small>+10 pts · +5 coins · -10 energy</small>
-              </span>
-            </button>
-            <button class="workout-button action-button" data-workout="squats" type="button">
-              <span class="workout-icon">↧</span>
-              <span>
-                <strong>Squats</strong>
-                <small>+15 pts · +8 coins · -15 energy</small>
-              </span>
-            </button>
-            <button class="workout-button action-button locked" data-workout="boxing" type="button">
-              <span class="workout-icon">◖</span>
-              <span>
-                <strong>Boxing Bag</strong>
-                <small id="boxingHint">Unlocks at Level 3</small>
-              </span>
-            </button>
-          </div>
-        </section>
-
-        <section class="challenge-panel card" id="challengePanel">
-          <div class="section-heading">
-            <h2>Challenge</h2>
-            <span class="reward-pill">+50 coins</span>
-          </div>
-          <p id="challengeText">Do 5 workouts</p>
-          <div class="meter">
-            <div class="meter-fill challenge-fill" id="challengeFill"></div>
-          </div>
-          <div class="challenge-progress" id="challengeProgress">0/5</div>
-        </section>
-
-        <section class="shop-panel card">
-          <div class="section-heading">
-            <h2>Upgrade Shop</h2>
-            <span class="shop-note">Tap to buy</span>
-          </div>
-          <div class="shop-list" id="shopList"></div>
-        </section>
+            <section class="pixel-panel outfit-panel" id="wardrobePanel">
+              <h2>Wardrobe</h2>
+              <div id="wardrobeList" class="outfit-list"></div>
+            </section>
+          </aside>
+        </div>
       </main>
+
+      <div class="toast hidden" id="toast"></div>
+
+      <!-- Add files at these paths to enable real audio playback. -->
+      <audio id="musicTrack" loop src="assets/music/gym-theme.mp3"></audio>
+      <audio id="workoutSfx" src="assets/sfx/workout.mp3"></audio>
+      <audio id="levelSfx" src="assets/sfx/level-up.mp3"></audio>
+      <audio id="buySfx" src="assets/sfx/buy.mp3"></audio>
     </div>
 
     <script src="script.js"></script>
